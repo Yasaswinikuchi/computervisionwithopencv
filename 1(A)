@@ -1,0 +1,4 @@
+from PIL import Image
+image = Image.open(r"C:\Users\yasaswini kuchi\OneDrive\Pictures\Screenshots\Screenshot 2026-02-11 090601.png")
+gray_image = image.convert("L")
+gray_image.show()
