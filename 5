@@ -1,0 +1,16 @@
+import cv2
+
+img = cv2.imread(r"C:\Users\yasaswini kuchi\OneDrive\Pictures\Screenshots\Screenshot 2026-02-11 095648.png")
+rows, cols = img.shape[:2]
+
+M_cw = cv2.getRotationMatrix2D((cols/2, rows/2), -90, 1)
+rot_cw = cv2.warpAffine(img, M_cw, (cols, rows))
+
+M_ccw = cv2.getRotationMatrix2D((cols/2, rows/2), 90, 1)
+rot_ccw = cv2.warpAffine(img, M_ccw, (cols, rows))
+
+cv2.imshow("Original", img)
+cv2.imshow("Rotate CW", rot_cw)
+cv2.imshow("Rotate CCW", rot_ccw)
+cv2.waitKey(0)
+cv2.destroyAllWindows()
