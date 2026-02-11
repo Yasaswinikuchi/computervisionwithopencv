@@ -1,0 +1,47 @@
+import cv2
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Load grayscale image
+img = cv2.imread(r"C:\Users\yasaswini kuchi\OneDrive\Pictures\Screenshots\Screenshot 2026-02-11 095427.png", 0)
+
+if img is None:
+    print("Error: Image not loaded. Check the file path.")
+    exit()
+
+# Parameter A (boost factor), A >= 1
+A = 2  # try different values like 1, 1.5, 2, 3 ...
+
+# Define first high-boost mask (4-neighbor)
+mask1 = np.array([[0,   -1,  0],
+                  [-1, A+4, -1],
+                  [0,   -1,  0]])
+
+# Define second high-boost mask (8-neighbor)
+mask2 = np.array([[-1, -1, -1],
+                  [-1, A+8, -1],
+                  [-1, -1, -1]])
+
+# Apply filters
+high_boost1 = cv2.filter2D(img, -1, mask1)
+high_boost2 = cv2.filter2D(img, -1, mask2)
+
+# Display images
+plt.figure(figsize=(15,5))
+
+plt.subplot(1,3,1)
+plt.imshow(img, cmap='gray')
+plt.title('Original Image')
+plt.axis('off')
+
+plt.subplot(1,3,2)
+plt.imshow(high_boost1, cmap='gray')
+plt.title(f'High-Boost Sharpening (4-neighbors) A={A}')
+plt.axis('off')
+
+plt.subplot(1,3,3)
+plt.imshow(high_boost2, cmap='gray')
+plt.title(f'High-Boost Sharpening (8-neighbors) A={A}')
+plt.axis('off')
+
+plt.show()
