@@ -1,0 +1,18 @@
+import cv2
+import numpy as np
+
+img = cv2.imread(r"C:\Users\yasaswini kuchi\OneDrive\Pictures\Screenshots\Screenshot 2026-02-11 095648.png")
+rows, cols = img.shape[:2]
+
+# Source and destination points
+pts_src = np.float32([[50,50],[200,50],[50,200],[200,200]])
+pts_dst = np.float32([[10,100],[200,50],[100,250],[220,220]])
+
+# Compute Homography using DLT
+H, status = cv2.findHomography(pts_src, pts_dst, method=cv2.RANSAC)
+dlt_result = cv2.warpPerspective(img, H, (cols, rows))
+
+cv2.imshow("Original", img)
+cv2.imshow("DLT Transform", dlt_result)
+cv2.waitKey(0)
+cv2.destroyAllWindows()
