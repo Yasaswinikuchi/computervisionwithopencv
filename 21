@@ -1,0 +1,30 @@
+import cv2
+import numpy as np
+
+# Read the image (use r before path)
+img = cv2.imread(r"C:\Users\yasaswini kuchi\OneDrive\Pictures\Screenshots\Screenshot 2026-02-11 095427.png")
+
+# Convert to grayscale
+gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+
+# Find gradients using Sobel
+grad_x = cv2.Sobel(gray, cv2.CV_64F, 1, 0, ksize=3)
+grad_y = cv2.Sobel(gray, cv2.CV_64F, 0, 1, ksize=3)
+
+# Convert to absolute values
+grad_x = cv2.convertScaleAbs(grad_x)
+grad_y = cv2.convertScaleAbs(grad_y)
+
+# Combine gradients (gradient mask)
+gradient = cv2.add(grad_x, grad_y)
+
+# Sharpen image by adding gradient mask
+sharpened = cv2.add(gray, gradient)
+
+# Show results
+cv2.imshow("Original Image", gray)
+cv2.imshow("Gradient Mask", gradient)
+cv2.imshow("Sharpened Image", sharpened)
+
+cv2.waitKey(0)
+cv2.destroyAllWindows()
