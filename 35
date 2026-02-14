@@ -1,0 +1,17 @@
+import cv2
+
+img = cv2.imread(r"C:\Users\yasaswini kuchi\OneDrive\Pictures\Screenshots\Screenshot 2026-02-14 094958.png")
+
+# Rectangle coordinates (change these if needed)
+x, y, w, h = 100, 100, 200, 200
+
+# Draw rectangle
+cv2.rectangle(img, (x, y), (x+w, y+h), (0,255,0), 2)
+
+# Extract object (crop)
+crop = img[y:y+h, x:x+w]
+
+cv2.imshow("Rectangle Image", img)
+cv2.imshow("Extracted Object", crop)
+cv2.waitKey(0)
+cv2.destroyAllWindows()
