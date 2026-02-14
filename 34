@@ -1,0 +1,15 @@
+import cv2
+
+cap = cv2.VideoCapture(0)
+bg = cv2.createBackgroundSubtractorMOG2()
+
+while True:
+    ret, frame = cap.read()
+    fg = bg.apply(frame)
+
+    cv2.imshow("Vehicle Detection", fg)
+    if cv2.waitKey(1) == 27:
+        break
+
+cap.release()
+cv2.destroyAllWindows()
